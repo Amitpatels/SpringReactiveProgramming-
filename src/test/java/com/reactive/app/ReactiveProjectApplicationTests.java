@@ -55,4 +55,15 @@ class ReactiveProjectApplicationTests {
 		});
 	}
 
+	@Test
+	public void mapMono(){
+		Mono<String> m1 = Mono.just("Amit is working in google");
+		Mono<String> m2 = Mono.just("Salary package is 1.2 crore");
+		Mono<String> m3 = Mono.just("when Amit work in india if Amit working USA salary 5 crore ");
+
+		Mono<String> resultMono =  m1.map(String::toUpperCase);
+
+		resultMono.subscribe(System.out::println);
+	}
+
 }
