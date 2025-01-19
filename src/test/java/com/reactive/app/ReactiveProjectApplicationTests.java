@@ -2,6 +2,7 @@ package com.reactive.app;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 import reactor.util.function.Tuple3;
@@ -64,6 +65,26 @@ class ReactiveProjectApplicationTests {
 		Mono<String> resultMono =  m1.map(String::toUpperCase);
 
 		resultMono.subscribe(System.out::println);
+	}
+
+	@Test
+	public void flatMapMono(){
+		Mono<String> m1 = Mono.just("Amit is working in google");
+		Mono<String[]> resultFlatMono = m1.flatMap(value1 -> Mono.just(value1.split(" ")));
+		resultFlatMono.subscribe(data -> {
+			for(String s : data){
+				System.out.println(s);
+			}
+		});
+	}
+
+	@Test
+	public void stringFlux(){
+		Mono<String> m1 = Mono.just("Amit is working in google");
+		Flux<String> stringFlux = m1.flatMapMany(valuem1 -> Flux.just(valuem1.split(" ")));
+		stringFlux.subscribe(data -> {
+			System.out.println(data);
+		});
 	}
 
 }
